@@ -26,3 +26,8 @@ Exec:
 docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/genres.csv --app_name=datadump --model_name=Genre
 docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/movies.csv --app_name=datadump --model_name=Movie
 ```
+
+#### Execute tests
+```commandline
+docker-compose exec web python /code/app/manage.py test
+```
