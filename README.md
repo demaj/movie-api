@@ -15,7 +15,7 @@ docker-compose up -d --build
 
 #### Make migrations:
 ```commandline
-docker-compose exec web python /code/app/manage.py makemigrations accounts
+docker-compose exec web python /code/app/manage.py makemigrations
 docker-compose exec web python /code/app/manage.py migrate
 ```
 
@@ -29,5 +29,5 @@ docker-compose exec web python /code/app/manage.py populate_db --path=/code/data
 
 #### Execute tests
 ```commandline
-docker-compose exec web python /code/app/manage.py test
+./tests-run.sh
 ```
