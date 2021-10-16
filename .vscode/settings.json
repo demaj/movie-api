@@ -1,0 +1,14 @@
+{
+    "python.linting.enabled": true,
+    "python.analysis.extraPaths": ["app"],
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/cvs": true,
+        "**/.DS_Store": true,
+        "**/.pytest_cache": true,
+        "**/__pycache__": true
+    },
+    "python.linting.flake8Enabled": true,
+}
