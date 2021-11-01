@@ -28,6 +28,6 @@ docker-compose exec web python /code/app/manage.py populate_db --path=/code/data
 ```
 
 #### Execute tests
-```commandline
+```shell
 ./tests-run.sh
 ```

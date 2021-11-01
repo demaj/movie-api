@@ -1,5 +1,5 @@
 FROM python:3.9.6
-MAINTAINER demaj.gentian@hotmail.com
+LABEL maintainer=gentiani101@gmail.com
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
