@@ -1,4 +1,14 @@
 {
+    "python.defaultInterpreterPath": ".venv/bin/python",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--config", ".flake8"],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.languageServer": "Pylance",
+    "python.analysis.extraPaths": ["app"],
+    "python.autoComplete.extraPaths": ["app"],
     "files.autoSave": "afterDelay",
     "files.exclude": {
         "**/.git": true,
@@ -11,16 +21,7 @@
         "**/__pycache__": true
     },
     "search.exclude": {
-        "**/node_modules": true,
-        "**/bower_components": true,
-        "**/*.code-search": true,
         "**/.git": true,
         "**/.venv": true
-    },
-    "python.pythonPath": ".venv/Scripts/python",
-    "python.analysis.extraPaths": ["app"],
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.languageServer": "Pylance",
+    }
 }

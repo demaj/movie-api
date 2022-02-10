@@ -2,14 +2,11 @@
 .git
 .gitignore
 
-# Docker
-.dockerignore
-
 # Python
 __pycache__/
-.env/
 .venv/
-venv/
 
 # Others
 .idea
+.vscode
+.flake8
