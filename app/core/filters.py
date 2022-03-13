@@ -1,12 +1,11 @@
-from django_filters import rest_framework as filters
 from core.models import Genre, Movie
+from django_filters import rest_framework as filters
 
 
 class GenreFilter(filters.FilterSet):
-
     class Meta:
         model = Genre
-        fields = ('name',)
+        fields = ("name",)
 
 
 class MovieFilter(filters.FilterSet):
@@ -14,7 +13,4 @@ class MovieFilter(filters.FilterSet):
 
     class Meta:
         model = Movie
-        fields = {
-            'title': ('exact', 'contains'),
-            'rating': ('lt', 'gt', 'lte', 'gte')
-        }
+        fields = {"title": ("exact", "contains"), "rating": ("lt", "gt", "lte", "gte")}

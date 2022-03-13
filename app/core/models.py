@@ -16,9 +16,9 @@ class Genre(models.Model):
     class Meta:
         verbose_name = "Genre"
         verbose_name_plural = "Genres"
-        ordering = ['name']
+        ordering = ["name"]
         indexes = [
-            models.Index(fields=['id', 'name'], name='genre_id_name_idx'),
+            models.Index(fields=["id", "name"], name="genre_id_name_idx"),
         ]
 
     def __str__(self):
@@ -34,27 +34,20 @@ class Movie(models.Model):
     )
     title = models.CharField(max_length=255)
     year = models.PositiveIntegerField()
-    genre = models.ForeignKey(
-        Genre,
-        on_delete=models.CASCADE,
-        related_name='movies'
-    )
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="movies")
     language = models.CharField(max_length=2)
     overview = models.TextField()
     rating = models.PositiveIntegerField(
-        default=1,
-        validators=[MinValueValidator(1), MaxValueValidator(100)],
-        null=True,
-        blank=True
+        default=1, validators=[MinValueValidator(1), MaxValueValidator(100)], null=True, blank=True
     )
 
     class Meta:
         verbose_name = "Movie"
         verbose_name_plural = "Movies"
-        ordering = ['-year', 'title']
+        ordering = ["-year", "title"]
         indexes = [
-            models.Index(fields=['id', 'title'], name='movie_id_title_idx'),
-            models.Index(fields=['id', 'genre'], name='movie_id_genre_idx'),
+            models.Index(fields=["id", "title"], name="movie_id_title_idx"),
+            models.Index(fields=["id", "genre"], name="movie_id_genre_idx"),
         ]
 
     def __str__(self):
@@ -62,9 +55,7 @@ class Movie(models.Model):
 
 
 class Country(models.Model):
-    COUNTRIES = [
-        ()
-    ]
+    COUNTRIES = [()]
 
     class Meta:
         verbose_name = "Country"

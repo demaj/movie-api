@@ -1,14 +1,12 @@
-from factory.django import DjangoModelFactory
-
 from core.models import Genre, Movie
+from factory.django import DjangoModelFactory
 
 
 class GenreFactory(DjangoModelFactory):
-
     class Meta:
         model = Genre
 
-    name = 'Test Genre'
+    name = "Test Genre"
 
 
 # class MovieFactory(DjangoModelFactory):
