@@ -23,8 +23,8 @@ docker-compose exec web python /code/app/manage.py migrate
 
 Exec:
 ```commandline
-docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/genres.csv --app_name=datadump --model_name=Genre
-docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/movies.csv --app_name=datadump --model_name=Movie
+docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/genres.csv --app_name=core --model_name=Genre
+docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/movies.csv --app_name=core --model_name=Movie
 ```
 
 #### Execute tests

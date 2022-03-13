@@ -6,4 +6,3 @@ class GenreModelTests(TestCase):
     @classmethod
     def setUp(cls):
         super().setUp()
-

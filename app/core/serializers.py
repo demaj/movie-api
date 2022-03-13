@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.models import CustomUser
-from datadump.models import Genre, Movie
+from core.models import Genre, Movie
 
 
 class GenreSerializer(serializers.ModelSerializer):

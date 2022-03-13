@@ -1,6 +1,6 @@
 from factory.django import DjangoModelFactory
 
-from datadump.models import Genre, Movie
+from core.models import Genre, Movie
 
 
 class GenreFactory(DjangoModelFactory):

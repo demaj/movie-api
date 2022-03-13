@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from datadump.models import Genre, Movie
+from core.models import Genre, Movie
 
 
 class GenreFilter(filters.FilterSet):

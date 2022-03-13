@@ -1,9 +1,9 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 
-from datadump.filters import GenreFilter, MovieFilter
-from datadump.models import Genre, Movie
-from datadump.serializers import GenreSerializer, MovieSerializer
+from core.filters import GenreFilter, MovieFilter
+from core.models import Genre, Movie
+from core.serializers import GenreSerializer, MovieSerializer
 
 
 class GenreViewSet(viewsets.ModelViewSet):

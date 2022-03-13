@@ -1,7 +1,7 @@
 from rest_framework.routers import SimpleRouter, DefaultRouter
-from datadump.views import GenreViewSet, MovieViewSet
+from core.views import GenreViewSet, MovieViewSet
 
-app_name = 'datadump'
+app_name = 'core'
 
 router = DefaultRouter(trailing_slash=False)
 router.register('genres', GenreViewSet, basename='genres')
