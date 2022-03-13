@@ -59,3 +59,14 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Country(models.Model):
+    COUNTRIES = [
+        ()
+    ]
+
+    class Meta:
+        verbose_name = "Country"
+        verbose_name_plural = "Countries"
+        indexes = []
