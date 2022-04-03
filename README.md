@@ -9,14 +9,19 @@ A Movie DB API built with Django, and DRF
 - docker-compose
 
 #### Startup:
-```commandline
+```bash
 docker-compose up -d --build
 ```
 
 #### Make migrations:
-```commandline
+```bash
 docker-compose exec web python /code/app/manage.py makemigrations
 docker-compose exec web python /code/app/manage.py migrate
+```
+
+#### Create superuser
+```bash
+docker-compose exec web python /code/app/manage.py createsuperuser
 ```
 
 #### Populate DB

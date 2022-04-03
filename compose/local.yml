@@ -5,6 +5,7 @@ services:
     container_name: web_container
     build:
       context: .
+      dockerfile: ./local/django/Dockerfile
     entrypoint: bash
     command: >
       -c "cd /code/app && python manage.py runserver 0.0.0.0:8000"
@@ -18,6 +19,7 @@ services:
       - db
     networks:
       - postgres_network
+      - default
     restart: unless-stopped
 
   db:
@@ -31,9 +33,18 @@ services:
       - "5432:5432"
     networks:
       - postgres_network
+      - default
+    restart: unless-stopped
+
+  redis:
+    image: redis:6.2.6-alpine
+    networks:
+      - postgres_network
+      - default
     restart: unless-stopped
 
 networks:
+  default:
   postgres_network:
     driver: bridge
 
