@@ -1,19 +1,50 @@
 import uuid
 
+from config import settings
 from core.fields import CountryField
-from core.utils import JANUARY, MONTH_CHOICES, current_year, year_choices
+from core.utils.months import JANUARY, MONTH_CHOICES
+from core.utils.utils import current_year, year_choices
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-class Period(models.Model):
+class AbstractBaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.RESTRICT,
+        related_name="%(app_label)s_%(class)s_created_by",
+        null=True,
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.RESTRICT,
+        related_name="%(app_label)s_%(class)s_updated_by",
+        null=True,
+    )
+    deleted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.RESTRICT,
+        related_name="%(app_label)s_%(class)s_deleted_by",
+        null=True,
+    )
+
+    class Meta:
+        abstract = True
+        get_latest_by = "updated_at"
+        ordering = ("-updated_at", "-created_at")
+
+
+class Period(AbstractBaseModel):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
         db_index=True,
     )
-    year = models.PositiveSmallIntegerField("year", choices=year_choices(), default=current_year)
+    year = models.PositiveSmallIntegerField("year", choices=year_choices(), default=current_year())
     month = models.PositiveSmallIntegerField("month", choices=MONTH_CHOICES, default=JANUARY)
 
     class Meta:
@@ -29,7 +60,7 @@ class Period(models.Model):
         return f"{self.year}-{self.month:02d}"
 
 
-class Genre(models.Model):
+class Genre(AbstractBaseModel):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -50,7 +81,7 @@ class Genre(models.Model):
         return self.name
 
 
-class Movie(models.Model):
+class Movie(AbstractBaseModel):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -79,7 +110,7 @@ class Movie(models.Model):
         return self.title
 
 
-class Network(models.Model):
+class Network(AbstractBaseModel):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,

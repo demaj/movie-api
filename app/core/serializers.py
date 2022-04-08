@@ -20,9 +20,12 @@ class GenreSerializer(BaseSerializer):
         model = Genre
 
 
-class MovieSerializer(BaseSerializer):
-    class Meta(BaseSerializer.Meta):
+class MovieSerializer(serializers.ModelSerializer):
+    genre = serializers.StringRelatedField()
+
+    class Meta:
         model = Movie
+        fields = ("title", "year", "genre", "language", "overview", "rating")
 
 
 class PeriodSerializer(BaseSerializer):
