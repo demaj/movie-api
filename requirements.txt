@@ -19,6 +19,7 @@ coreschema==0.0.4
 cryptography==36.0.2
 defusedxml==0.7.1
 Deprecated==1.2.13
+distlib==0.3.4
 dj-database-url==0.5.0
 dj-email-url==1.0.2
 Django==4.0.3
@@ -32,6 +33,7 @@ drf-spectacular==0.21.2
 environs==9.3.3
 factory-boy==3.2.0
 Faker==8.13.2
+filelock==3.6.0
 flake8==4.0.1
 flower==1.0.0
 humanize==4.0.0
@@ -86,5 +88,6 @@ typing-extensions==3.10.0.2
 uritemplate==3.0.1
 urllib3==1.26.6
 vine==5.0.0
+virtualenv==20.14.0
 wcwidth==0.2.5
 wrapt==1.13.3
