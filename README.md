@@ -1,5 +1,5 @@
 # Movie API
-A Movie DB API built with Django, and DRF
+A Movie Database API built with Django, Django REST framework and PostgreSQL
 
 ## Getting Started
 
@@ -25,7 +25,6 @@ docker-compose exec web python /code/app/manage.py createsuperuser
 ```
 
 #### Populate DB
-
 Exec:
 ```commandline
 docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/genres.csv --app_name=core --model_name=Genre
