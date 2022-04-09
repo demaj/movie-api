@@ -2,7 +2,6 @@ import uuid
 
 from config import settings
 from core.fields import CountryField
-from core.utils.months import JANUARY, MONTH_CHOICES
 from core.utils.utils import current_year, year_choices
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -37,30 +36,7 @@ class AbstractBaseModel(models.Model):
         ordering = ("-updated_at", "-created_at")
 
 
-class Period(AbstractBaseModel):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False,
-        db_index=True,
-    )
-    year = models.PositiveSmallIntegerField("year", choices=year_choices(), default=current_year())
-    month = models.PositiveSmallIntegerField("month", choices=MONTH_CHOICES, default=JANUARY)
-
-    class Meta:
-        ordering = ["-year", "-month"]
-        indexes = [
-            models.Index(fields=["year"], name="period_year_idx"),
-            models.Index(fields=["month"], name="period_month_idx"),
-            models.Index(fields=["year", "month"], name="period_year_month_idx"),
-        ]
-        unique_together = ["year", "month"]
-
-    def __str__(self):
-        return f"{self.year}-{self.month:02d}"
-
-
-class Genre(AbstractBaseModel):
+class Genre(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -70,8 +46,6 @@ class Genre(AbstractBaseModel):
     name = models.CharField(max_length=200)
 
     class Meta:
-        verbose_name = "Genre"
-        verbose_name_plural = "Genres"
         ordering = ["name"]
         indexes = [
             models.Index(fields=["id", "name"], name="genre_id_name_idx"),
@@ -81,7 +55,7 @@ class Genre(AbstractBaseModel):
         return self.name
 
 
-class Movie(AbstractBaseModel):
+class Movie(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -98,8 +72,6 @@ class Movie(AbstractBaseModel):
     )
 
     class Meta:
-        verbose_name = "Movie"
-        verbose_name_plural = "Movies"
         ordering = ("-year", "title")
         indexes = [
             models.Index(fields=["id", "title"], name="movie_id_title_idx"),
@@ -110,7 +82,7 @@ class Movie(AbstractBaseModel):
         return self.title
 
 
-class Network(AbstractBaseModel):
+class Network(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -119,11 +91,11 @@ class Network(AbstractBaseModel):
     )
     name = models.CharField(max_length=32)
     country = CountryField()
-    start_period = models.ForeignKey(Period, on_delete=models.DO_NOTHING, related_name="network_start_period")
-    end_period = models.ForeignKey(Period, on_delete=models.DO_NOTHING, related_name="network_end_period")
+    headquarters = models.CharField(max_length=128)
+    homepage = models.URLField()
 
     class Meta:
-        ordering = ["-end_period__year", "-start_period__year"]
+        ordering = ["name"]
 
     def __str__(self):
-        return f"{self.name}: {self.start_period} ~ {self.end_period}"
+        return f"{self.name} : {self.homepage}"

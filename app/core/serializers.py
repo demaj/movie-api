@@ -1,9 +1,9 @@
 from accounts.models import CustomUser
-from core.models import Genre, Movie, Network, Period
+from core.models import Genre, Movie, Network
 from rest_framework import serializers
 
 
-class BaseSerializer(serializers.ModelSerializer):
+class AbstractBaseSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         abstract = True
@@ -15,8 +15,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username")
 
 
-class GenreSerializer(BaseSerializer):
-    class Meta(BaseSerializer.Meta):
+class GenreSerializer(AbstractBaseSerializer):
+    class Meta(AbstractBaseSerializer.Meta):
         model = Genre
 
 
@@ -25,18 +25,9 @@ class MovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ("title", "year", "genre", "language", "overview", "rating")
+        fields = ("id", "title", "year", "genre", "language", "overview", "rating")
 
 
-class PeriodSerializer(BaseSerializer):
-    class Meta(BaseSerializer.Meta):
-        model = Period
-
-
-class NetworkSerializer(serializers.ModelSerializer):
-    start_period = serializers.StringRelatedField()
-    end_period = serializers.StringRelatedField()
-
-    class Meta:
+class NetworkSerializer(AbstractBaseSerializer):
+    class Meta(AbstractBaseSerializer.Meta):
         model = Network
-        fields = ("name", "country", "start_period", "end_period")

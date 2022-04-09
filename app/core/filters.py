@@ -1,4 +1,4 @@
-from core.models import Genre, Movie, Network, Period
+from core.models import Genre, Movie, Network
 from django_filters import rest_framework as filters
 
 
@@ -21,27 +21,9 @@ class MovieFilter(filters.FilterSet):
         }
 
 
-class PeriodFilter(filters.FilterSet):
-    year = filters.NumberFilter(field_name="year")
-    month = filters.NumberFilter(field_name="month")
-
-    class Meta:
-        model = Period
-        fields = {
-            "year": ("lt", "gt", "lte", "gte"),
-            "month": ("lt", "gt", "lte", "gte"),
-        }
-
-
 class NetworkFilter(filters.FilterSet):
     name_in = filters.CharFilter(field_name="name", lookup_expr="icontains")
-    start_period__year = filters.NumberFilter(field_name="start_period__year")
-    end_period__year = filters.NumberFilter(field_name="end_period__year")
 
     class Meta:
         model = Network
         fields = ("name", "country")
-        fields = {
-            "start_period__year": ("lt", "gt", "lte", "gte"),
-            "end_period__year": ("lt", "gt", "lte", "gte"),
-        }

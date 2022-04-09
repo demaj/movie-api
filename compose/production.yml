@@ -5,6 +5,7 @@ services:
     container_name: web_container
     build:
       context: .
+      dockerfile: ./production/django/Dockerfile
     entrypoint: bash
     command: >
       -c "cd /code/app && python manage.py runserver 0.0.0.0:8000"

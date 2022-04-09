@@ -1,15 +1,19 @@
-from core.filters import GenreFilter, MovieFilter, NetworkFilter, PeriodFilter
-from core.models import Genre, Movie, Network, Period
-from core.serializers import (
-    GenreSerializer,
-    MovieSerializer,
-    NetworkSerializer,
-    PeriodSerializer,
-)
+from core.filters import GenreFilter, MovieFilter, NetworkFilter
+from core.models import Genre, Movie, Network
+from core.serializers import GenreSerializer, MovieSerializer, NetworkSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
+
+
+class AbstractBaseViewSet(viewsets.ModelViewSet):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+
+    class Meta:
+        abstract = True
 
 
 class GenreViewSet(viewsets.ModelViewSet):
@@ -28,15 +32,6 @@ class MovieViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = MovieFilter
-
-
-class PeriodViewSet(viewsets.ModelViewSet):
-    queryset = Period.objects.all()
-    serializer_class = PeriodSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-    filter_backends = (DjangoFilterBackend,)
-    filterset_class = PeriodFilter
 
 
 class NetworkViewSet(viewsets.ModelViewSet):

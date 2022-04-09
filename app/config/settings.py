@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",
     "drf_spectacular",
     "django_filters",
     "django_extensions",
@@ -144,7 +143,7 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-
+# drf-spectacular config
 SPECTACULAR_SETTINGS = {
     "TITLE": "Movie API",
     "DESCRIPTION": "Movie Database API",

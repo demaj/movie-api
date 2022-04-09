@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 #
 COUNTRIES = (
+    ("", "----"),
     ("AD", _("Andorra")),
     ("AE", _("United Arab Emirates")),
     ("AF", _("Afghanistan")),
