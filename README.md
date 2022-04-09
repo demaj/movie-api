@@ -1,5 +1,5 @@
 # Movie API
-A Movie Database API built with Django, Django REST framework and PostgreSQL
+A Movie Database API built with Django, Django REST framework, PostgreSQL and Docker
 
 ## Getting Started
 
