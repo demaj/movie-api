@@ -55,6 +55,30 @@ class Genre(models.Model):
         return self.name
 
 
+class Company(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        db_index=True,
+    )
+    name = models.CharField(max_length=64)
+    country = CountryField()
+    headquarters = models.CharField(max_length=128)
+    homepage = models.URLField()
+
+    class Meta:
+        verbose_name = "Company"
+        verbose_name_plural = "Companies"
+        ordering = ["name"]
+        indexes = [
+            models.Index(fields=["id", "name"], name="company_id_name_idx"),
+        ]
+
+    def __str__(self):
+        return f"{self.name} : {self.homepage}"
+
+
 class Movie(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -64,12 +88,15 @@ class Movie(models.Model):
     )
     title = models.CharField(max_length=255)
     year = models.PositiveSmallIntegerField("year", choices=year_choices(), default=current_year())
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="movies")
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="movies", related_query_name="movie")
     language = models.CharField(max_length=2)
     overview = models.TextField()
     rating = models.PositiveSmallIntegerField(
         default=50, validators=[MinValueValidator(1), MaxValueValidator(100)], null=True, blank=True
     )
+    running_time = models.PositiveSmallIntegerField("time")
+    budget = models.PositiveSmallIntegerField("budget")
+    box_office = models.PositiveSmallIntegerField("box_office")
 
     class Meta:
         ordering = ("-year", "title")
@@ -89,7 +116,7 @@ class Network(models.Model):
         editable=False,
         db_index=True,
     )
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=64)
     country = CountryField()
     headquarters = models.CharField(max_length=128)
     homepage = models.URLField()
