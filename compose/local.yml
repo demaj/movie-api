@@ -2,7 +2,8 @@ version: '3.9'
 
 services:
   web:
-    container_name: web_container
+    container_name: movie-web
+    image: movie-api_web:latest
     build:
       context: .
       dockerfile: ./local/django/Dockerfile
@@ -23,7 +24,7 @@ services:
     restart: unless-stopped
 
   db:
-    container_name: db_container
+    container_name: movie-db
     image: postgres:14.2-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/

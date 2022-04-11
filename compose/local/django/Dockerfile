@@ -6,8 +6,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
-COPY ./app /code/app
+COPY ../../../requirements.txt /code/requirements.txt
+COPY ../../../app /code/app
 
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \

@@ -1,8 +1,8 @@
 build:
-	@docker-compose -f docker-compose.yml build
+	@docker-compose -f compose/local.yml build
 
 run:
-	@docker-compose -f docker-compose.yml up -d
+	@docker-compose -f compose/local.yml up -d
 
 down:
-	@docker-compose -f docker-compose.yml down
+	@docker-compose -f compose/local.yml down
