@@ -8,13 +8,13 @@ services:
       dockerfile: ./production/django/Dockerfile
     entrypoint: bash
     command: >
-      -c "cd /code/app && python manage.py runserver 0.0.0.0:8000"
+      -c "cd /code/app && python manage.py runserver 0.0.0.0:8080"
     volumes:
       - .:/code
     env_file:
       - ../.envs/.production/app.secrets.env
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - db
     networks:
@@ -23,7 +23,7 @@ services:
 
   db:
     container_name: db_container
-    image: postgres:14.2-alpine
+    image: postgres:15.5-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:

@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import dj_database_url
 from environs import Env
 
 env = Env()
@@ -40,8 +41,8 @@ INSTALLED_APPS = [
     "django_filters",
     "django_extensions",
     # Local
-    "accounts",
-    "core",
+    "accounts.apps.AccountsConfig",
+    "core.apps.CoreConfig",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -67,6 +69,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -85,7 +88,12 @@ DATABASES = {
         "PASSWORD": env.str("DB_PASS"),
         "HOST": env.str("DB_HOST"),
         "PORT": env.int("DB_PORT"),
-    }
+    },
+    # "default": dj_database_url.config(
+    #     conn_max_age=600,
+    #     conn_health_checks=True,
+    #     ssl_require=True,
+    # )
 }
 
 

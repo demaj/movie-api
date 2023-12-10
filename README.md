@@ -4,35 +4,34 @@ A Movie Database API built with Django, Django REST framework, PostgreSQL and Do
 ## Getting Started
 
 #### Requirements:
-
 - docker
-- docker-compose
 
-#### Startup:
+#### Startup/Shutdown:
 ```bash
-docker-compose up -d --build
+make start
+make stop
 ```
 
 #### Make migrations:
 ```bash
-docker-compose exec web python /code/app/manage.py makemigrations
-docker-compose exec web python /code/app/manage.py migrate
+make migrations
+make migrate
 ```
 
 #### Create superuser
 ```bash
-docker-compose exec web python /code/app/manage.py createsuperuser
+make superuser
 ```
 
 #### Populate DB
 Exec:
 ```commandline
-docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/genres.csv --app_name=core --model_name=Genre
-docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/movies.csv --app_name=core --model_name=Movie
-docker-compose exec web python /code/app/manage.py populate_db --path=/code/data/networks.csv --app_name=core --model_name=Network
+docker-compose exec -w /code/app web python manage.py populate_db --path=/code/data/genres.csv --app_name=core --model_name=Genre
+docker-compose exec -w /code/app web python manage.py populate_db --path=/code/data/movies.csv --app_name=core --model_name=Movie
+docker-compose exec -w /code/app web python manage.py populate_db --path=/code/data/networks.csv --app_name=core --model_name=Network
 ```
 
 #### Execute tests
-```shell
-./tests-run.sh
+```bash
+make test
 ```

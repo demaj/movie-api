@@ -1,11 +1,27 @@
-[tool.black]
-line-length = 119
-extend-exclude = '''
-/(
-    | migrations
-)/
-'''
+[project]
+name = "klasike"
+description = "Vepra Klasike Shqiptare"
+readme = "README.md"
 
 [tool.isort]
 profile = "black"
-extend_skip_glob = ["**/migrations/*"]
+line_length = 119
+extend_skip_glob = [
+    ".git",
+    ".venv",
+    ".vscode",
+    ".envs",
+    ".github",
+    ".pytest_cache",
+    "migrations"
+]
+known_third_party = [
+    "django",
+    "pytest"
+]
+known_local_folder = [
+    "config"
+]
+
+[tool.black]
+line-length = 119
