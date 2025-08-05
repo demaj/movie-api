@@ -1,8 +1,9 @@
-from core.tests.factories import GenreFactory
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
+
+from core.tests.factories import GenreFactory
 
 
 class GenreViewSetTestCase(APITestCase):

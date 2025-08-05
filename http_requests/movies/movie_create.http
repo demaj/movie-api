@@ -1,0 +1,22 @@
+POST http://127.0.0.1:8080/api/movies HTTP/1.1
+Content-Type: application/json
+X-Request-Id: 02f9a1b1-5d77-42b1-8079-b2ea78cde4a9
+Authorization: Basic Z2VudGlhbmQ6b3N0cm9ncmFkc2tp
+
+{
+  "title": "Opennheimer",
+  "year": 2023,
+  "genre": [
+    {
+      "name": "Drama"
+    },
+    {
+      "name": "History"
+    }
+  ],
+  "language": "US",
+  "overview": "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II.",
+  "rating": 81,
+  "running_time": 181
+}
+

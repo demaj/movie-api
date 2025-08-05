@@ -2,17 +2,17 @@ version: '3.9'
 
 services:
   web:
-    container_name: web_container
+    container_name: movie-web
     build:
       context: .
-      dockerfile: ./production/django/Dockerfile
     entrypoint: bash
     command: >
-      -c "cd /code/app && python manage.py runserver 0.0.0.0:8080"
+      -c "cd /code/app && python -m gunicorn config.wsgi:application --bind 0.0.0.0:8080 --reload"
     volumes:
-      - .:/code
+      - ./app:/code/app
+      - ./data:/code/data
     env_file:
-      - ../.envs/.production/app.secrets.env
+      - ./.envs/.production/app.secrets.env
     ports:
       - "8080:8080"
     depends_on:
@@ -20,19 +20,29 @@ services:
     networks:
       - postgres_network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/healthcheck/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   db:
-    container_name: db_container
-    image: postgres:15.5-alpine
+    container_name: movie-db
+    image: postgres:15.4-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ../.envs/.production/app.secrets.env
+      - ./.envs/.production/app.secrets.env
     ports:
       - "5432:5432"
     networks:
       - postgres_network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   postgres_network:

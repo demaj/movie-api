@@ -1,0 +1,4 @@
+DELETE http://127.0.0.1:8080/api/movies/2a8a4efd-69af-4a9a-b015-6a0dc1ea9871 HTTP/1.1
+Content-Type: application/json
+X-Request-Id: 02f9a1b1-5d77-42b1-8079-b2ea78cde4a9
+Authorization: Basic Z2VudGlhbmQ6b3N0cm9ncmFkc2tp

@@ -1,10 +1,11 @@
 import uuid
 
-from config import settings
-from core.fields import CountryField
-from core.utils.utils import current_year, year_choices
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+
+from config.settings import base as settings
+from core.fields import CountryField
+from core.utils.utils import current_year, year_choices
 
 
 class AbstractBaseModel(models.Model):
@@ -41,9 +42,8 @@ class Genre(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
-        db_index=True,
     )
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     class Meta:
         ordering = ["name"]
@@ -60,7 +60,6 @@ class Company(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
-        db_index=True,
     )
     name = models.CharField(max_length=64)
     country = CountryField()
@@ -84,29 +83,29 @@ class Movie(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
-        db_index=True,
     )
     title = models.CharField(max_length=255)
     year = models.PositiveSmallIntegerField("year", choices=year_choices(), default=current_year())
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="movies", related_query_name="movie")
-    language = models.CharField(max_length=2)
+    genre = models.ManyToManyField(Genre, related_name="movies", related_query_name="movie")
+    language = CountryField()
     overview = models.TextField()
     rating = models.PositiveSmallIntegerField(
-        default=50, validators=[MinValueValidator(1), MaxValueValidator(100)], null=True, blank=True
+        default=50,
+        validators=[MinValueValidator(1), MaxValueValidator(100)],
+        null=True,
+        blank=True,
     )
     running_time = models.PositiveSmallIntegerField("time")
-    budget = models.PositiveSmallIntegerField("budget")
-    box_office = models.PositiveSmallIntegerField("box_office")
 
     class Meta:
+        unique_together = ("title", "year")
         ordering = ("-year", "title")
         indexes = [
             models.Index(fields=["id", "title"], name="movie_id_title_idx"),
-            models.Index(fields=["id", "genre"], name="movie_id_genre_idx"),
         ]
 
     def __str__(self):
-        return self.title
+        return f"{self.title} ({self.year})"
 
 
 class Network(models.Model):
@@ -114,7 +113,6 @@ class Network(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
-        db_index=True,
     )
     name = models.CharField(max_length=64)
     country = CountryField()

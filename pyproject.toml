@@ -1,7 +1,7 @@
 [project]
-name = "klasike"
-description = "Vepra Klasike Shqiptare"
-readme = "README.md"
+name = "movie-api"
+version = "0.1.0"
+dependencies = ["django", "djangorestframework"]
 
 [tool.isort]
 profile = "black"
@@ -12,16 +12,27 @@ extend_skip_glob = [
     ".vscode",
     ".envs",
     ".github",
-    ".pytest_cache",
-    "migrations"
+    ".pytest_cache/",
+    "migrations/*"
 ]
 known_third_party = [
     "django",
-    "pytest"
+    "pytest",
+    "rest_framework",
+    "django_filters",
 ]
 known_local_folder = [
-    "config"
+    "config",
+    "core",
+    "healthcheck",
 ]
 
 [tool.black]
 line-length = 119
+
+[tool.pip-tools]
+generate-hashes = true
+dry-run = true
+
+[tool.pip-tools.compile]  # "sync" for pip-sync
+dry-run = false

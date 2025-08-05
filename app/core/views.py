@@ -1,13 +1,14 @@
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
+
 from core.filters import GenreFilter, MovieFilter, NetworkFilter
 from core.models import Genre, Movie, Network
 from core.serializers import GenreSerializer, MovieSerializer, NetworkSerializer
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
-from rest_framework.authentication import BasicAuthentication, SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
 
 
-class AbstractBaseViewSet(viewsets.ModelViewSet):
+class AbstractBaseViewSet(ModelViewSet):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
@@ -16,7 +17,7 @@ class AbstractBaseViewSet(viewsets.ModelViewSet):
         abstract = True
 
 
-class GenreViewSet(viewsets.ModelViewSet):
+class GenreViewSet(ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
@@ -25,7 +26,7 @@ class GenreViewSet(viewsets.ModelViewSet):
     filterset_class = GenreFilter
 
 
-class MovieViewSet(viewsets.ModelViewSet):
+class MovieViewSet(ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
@@ -34,7 +35,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     filterset_class = MovieFilter
 
 
-class NetworkViewSet(viewsets.ModelViewSet):
+class NetworkViewSet(ModelViewSet):
     queryset = Network.objects.all()
     serializer_class = NetworkSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]

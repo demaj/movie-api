@@ -6,7 +6,8 @@
 __pycache__/
 .venv/
 
-# Others
+# Config
 .idea
 .vscode
 .flake8
+README.md

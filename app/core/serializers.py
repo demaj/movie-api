@@ -1,6 +1,7 @@
 from accounts.models import CustomUser
-from core.models import Genre, Movie, Network
 from rest_framework import serializers
+
+from core.models import Genre, Movie, Network
 
 
 class AbstractBaseSerializer(serializers.ModelSerializer):
@@ -15,17 +16,34 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username")
 
 
-class GenreSerializer(AbstractBaseSerializer):
-    class Meta(AbstractBaseSerializer.Meta):
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
         model = Genre
+        fields = ("id", "name")
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    genre = serializers.StringRelatedField()
+    genre = GenreSerializer(many=True)
 
     class Meta:
         model = Movie
-        fields = ("id", "title", "year", "genre", "language", "overview", "rating")
+        fields = ("id", "title", "year", "genre", "language", "overview", "rating", "running_time")
+        read_only_fields = ("id",)
+
+    def create(self, validated_data):
+        """
+        Create and return a new `Movie` instance, given the validated data.
+        Only assign existing genres to the movie, don't create new ones.
+        """
+        genre_data = validated_data.pop("genre", [])
+        movie = Movie.objects.create(**validated_data)
+
+        for genre_name in genre_data:
+            genre_obj = Genre.objects.get(name=genre_name["name"])
+            movie.genre.add(genre_obj)
+
+        movie.save()
+        return movie
 
 
 class NetworkSerializer(AbstractBaseSerializer):

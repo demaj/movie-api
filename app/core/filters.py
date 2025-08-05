@@ -1,5 +1,6 @@
-from core.models import Genre, Movie, Network
 from django_filters import rest_framework as filters
+
+from core.models import Genre, Movie, Network
 
 
 class GenreFilter(filters.FilterSet):

@@ -10,6 +10,7 @@ services:
       -c "cd /code/app && python manage.py runserver 0.0.0.0:8080"
     volumes:
       - ./app:/code/app
+      - ./data:/code/data
     env_file:
       - ./.envs/.local/app.secrets.env
     ports:
@@ -19,10 +20,15 @@ services:
     networks:
       - postgres_network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/healthcheck/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   db:
     container_name: movie-db
-    image: postgres:15.5-alpine
+    image: postgres:15.4-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -32,6 +38,11 @@ services:
     networks:
       - postgres_network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   postgres_network:

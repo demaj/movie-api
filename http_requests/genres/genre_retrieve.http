@@ -1,0 +1,4 @@
+GET http://127.0.0.1:8080/api/genres/7c8df46f-10f5-4ea4-92d1-9bacdbc09579 HTTP/1.1
+Content-Type: application/json
+X-Request-Id: aca264c6-4d73-4dc3-961e-1a2a65296511
+Authorization: Basic Z2VudGlhbmQ6b3N0cm9ncmFkc2tp

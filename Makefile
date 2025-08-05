@@ -29,6 +29,10 @@ migrate:
 superuser:
 	@docker compose exec -w /code/app web python manage.py createsuperuser
 
+.PHONY: collectstatic
+collectstatic:
+	@docker compose exec -w /code/app web python manage.py collectstatic --noinput
+
 .PHONY: logs
 logs:
 	@docker logs -f movie-web
@@ -44,3 +48,7 @@ test:
 .PHONY: freeze
 freeze:
 	python -m pip freeze > requirements.txt
+
+.PHONY: checklist
+checklist:
+	@docker compose exec -w /code/app web python manage.py check --deploy

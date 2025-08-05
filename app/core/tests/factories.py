@@ -1,5 +1,6 @@
-from core.models import Genre, Movie
 from factory.django import DjangoModelFactory
+
+from core.models import Genre, Movie
 
 
 class GenreFactory(DjangoModelFactory):

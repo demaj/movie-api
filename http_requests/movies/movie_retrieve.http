@@ -1,0 +1,4 @@
+GET http://127.0.0.1:8080/api/movies HTTP/1.1
+Content-Type: application/json
+X-Request-Id: 7e50ffc1-313e-4ae8-a575-bef768e64562
+Authorization: Basic Z2VudGlhbmQ6b3N0cm9ncmFkc2tp
